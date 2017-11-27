@@ -8,7 +8,8 @@ using UnityEditor;
 
 public class OBSGlass : MonoBehaviour {
 
-    public int id;
+    public int pos;
+    public int plug;
 
 	// Use this for initialization
 	void Start () {
@@ -23,8 +24,8 @@ public class OBSGlass : MonoBehaviour {
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
-        Handles.color = Color.HSVToRGB(id / 10f, 1, 1);
-        Handles.Label(transform.position + Vector3.up * .5f, id.ToString());
+        Handles.color = Color.HSVToRGB(pos / 10f, 1, 0);
+        Handles.Label(transform.position + Vector3.up * 2f, pos + " > "+ plug);
     }
 #endif
 }

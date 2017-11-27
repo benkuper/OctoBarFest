@@ -11,19 +11,16 @@ using DG.Tweening;
 public class OBSPlate : MonoBehaviour {
 
     [Header("Setup")]
-    public int numPositions;
     public int numGlasses;
     public float radius;
     public GameObject glassPrefab;
 
-    public OBSGlass[] glasses;
-
-
+    public List<OBSGlass> glasses;
 
     // Use this for initialization
     void Start()
     {
-        generateGlasses(numGlasses);
+        clear();
     }
 	
 	// Update is called once per frame
@@ -31,27 +28,34 @@ public class OBSPlate : MonoBehaviour {
 		
 	}
 
-    void generateGlasses(int num)
+    public void clear()
     {
-        if(glasses != null)
+        if (glasses != null)
         {
-            foreach(OBSGlass g in glasses)
+            foreach (OBSGlass g in glasses)
             {
-                if(g != null) Destroy(g.gameObject);
+                if (g != null) DestroyImmediate(g.gameObject);
             }
         }
 
-        glasses = new OBSGlass[num];
+        OBSGlass[] tmpGlasses = GetComponentsInChildren<OBSGlass>();
+        foreach (OBSGlass g in tmpGlasses) DestroyImmediate(g.gameObject);
+        glasses = new List<OBSGlass>();
+    }
 
-        for (int i = 0; i < num; i++)
-        { 
-            OBSGlass g = Instantiate(glassPrefab).GetComponent<OBSGlass>();
-            glasses[i] = g;
-            g.id = i;
-            g.transform.SetParent(transform);
-            float angle = i * 45 * Mathf.PI / 180.0f;  
-            g.transform.localPosition = new Vector3(Mathf.Cos(angle) * radius, 0, -Mathf.Sin(angle) * radius);
-        }
+    public void addGlass(int pos, int plug)
+    {
+        OBSGlass g = Instantiate(glassPrefab).GetComponent<OBSGlass>();
+        glasses.Add(g);
+
+
+        g.pos = pos;
+        g.plug = plug;
+
+
+        g.transform.SetParent(transform);
+        float angle = pos * 45 * Mathf.PI / 180.0f;  
+        g.transform.localPosition = new Vector3(Mathf.Cos(angle) * radius, 0, -Mathf.Sin(angle) * radius);
     }
 
     public void goHome()
@@ -61,7 +65,7 @@ public class OBSPlate : MonoBehaviour {
 
     public void goToPosition(int position, float time)
     {
-        float step = 360.0f / numPositions;
+        float step = 360.0f / GetComponentInParent<OctoBarFest>().numPositions;
         float targetRotY = position * step;
 
         transform.DORotate(new Vector3(0, targetRotY, 0), time).SetEase(Ease.InOutSine);

@@ -112,117 +112,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &117541484
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 117541485}
-  - component: {fileID: 117541486}
-  - component: {fileID: 117541490}
-  - component: {fileID: 117541489}
-  - component: {fileID: 117541488}
-  - component: {fileID: 117541487}
-  m_Layer: 0
-  m_Name: Mix 1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &117541485
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 117541484}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1510092766}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &117541486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 117541484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 782bdcb74d4da1947b825b59ce9bff30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mixName: Mix1
-  plugPosition: 1
-  ingredients: []
---- !u!114 &117541487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 117541484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5769fad290db7a241b71198ab4092405, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ingredient:
-    ingredientName: 
-    platePosition: 0
-    isAlcohol: 0
-  quantity: 4
---- !u!114 &117541488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 117541484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5769fad290db7a241b71198ab4092405, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ingredient:
-    ingredientName: 
-    platePosition: 0
-    isAlcohol: 0
-  quantity: 5
---- !u!114 &117541489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 117541484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5769fad290db7a241b71198ab4092405, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ingredient:
-    ingredientName: 
-    platePosition: 0
-    isAlcohol: 0
-  quantity: 3
---- !u!114 &117541490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 117541484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5769fad290db7a241b71198ab4092405, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ingredient:
-    ingredientName: 
-    platePosition: 0
-    isAlcohol: 0
-  quantity: 2
 --- !u!1 &665427980
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +292,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1210562170}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: -7.02}
+  m_LocalPosition: {x: 0, y: 3, z: -15.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -437,21 +326,189 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numPositions: 8
-  numMixes: 5
   stepTransitionTime: 1
+  pouringTimeFactor: 1
+  minServingTime: 0.5
   jetAnticipation: 0.607
+  currentSession: visite1.json
   ingredients:
-  - ingredientName: Vodka
+  - id: 0
+    ingredientName: vodka
     platePosition: 0
-    isAlcohol: 0
-  - ingredientName: Tequila
+  - id: 1
+    ingredientName: gin
     platePosition: 1
-    isAlcohol: 0
-  - ingredientName: Orange
+  - id: 2
+    ingredientName: tequila
     platePosition: 2
-    isAlcohol: 0
-  pouringMixes:
-  - mix: {fileID: 0}
+  - id: 3
+    ingredientName: orange
+    platePosition: 3
+  - id: 4
+    ingredientName: lime
+    platePosition: 4
+  - id: 5
+    ingredientName: lemon
+    platePosition: 5
+  - id: 6
+    ingredientName: cola
+    platePosition: 4
+  - id: 7
+    ingredientName: rum
+    platePosition: 6
+  - id: 8
+    ingredientName: triple_sec
+    platePosition: 7
+  - id: 9
+    ingredientName: brandy
+    platePosition: 3
+  mixes:
+  - id: 0
+    mixName: Rum Screwdriver
+    ingredients:
+    - ingredientName: orange
+      quantity: 150
+    - ingredientName: rum
+      quantity: 15
+  - id: 1
+    mixName: Between The Sheets
+    ingredients:
+    - ingredientName: triple_sec
+      quantity: 30
+    - ingredientName: brandy
+      quantity: 30
+    - ingredientName: lemon
+      quantity: 30
+    - ingredientName: rum
+      quantity: 30
+  - id: 2
+    mixName: Sidecar Cocktail
+    ingredients:
+    - ingredientName: brandy
+      quantity: 30
+    - ingredientName: lemon
+      quantity: 7.5
+    - ingredientName: triple_sec
+      quantity: 15
+  - id: 3
+    mixName: Cuba Libre
+    ingredients:
+    - ingredientName: lime
+      quantity: 15
+    - ingredientName: cola
+      quantity: 1
+    - ingredientName: rum
+      quantity: 60
+  - id: 4
+    mixName: Boston Sidecar
+    ingredients:
+    - ingredientName: brandy
+      quantity: 22.5
+    - ingredientName: lime
+      quantity: 15
+    - ingredientName: triple_sec
+      quantity: 22.5
+    - ingredientName: rum
+      quantity: 22.5
+  - id: 5
+    mixName: After Dinner Cocktail
+    ingredients:
+    - ingredientName: brandy
+      quantity: 30
+    - ingredientName: triple_sec
+      quantity: 30
+    - ingredientName: lime
+      quantity: 30
+  - id: 6
+    mixName: After Supper Cocktail
+    ingredients:
+    - ingredientName: brandy
+      quantity: 30
+    - ingredientName: lemon
+      quantity: 2.5
+    - ingredientName: triple_sec
+      quantity: 30
+  - id: 7
+    mixName: Flying Dutchman
+    ingredients:
+    - ingredientName: gin
+      quantity: 60
+    - ingredientName: triple_sec
+      quantity: 15
+  - id: 8
+    mixName: Long Island Iced Tea
+    ingredients:
+    - ingredientName: vodka
+      quantity: 15
+    - ingredientName: lemon
+      quantity: 15
+    - ingredientName: rum
+      quantity: 15
+    - ingredientName: tequila
+      quantity: 15
+    - ingredientName: gin
+      quantity: 15
+    - ingredientName: cola
+      quantity: 1
+  - id: 9
+    mixName: City Slicker
+    ingredients:
+    - ingredientName: brandy
+      quantity: 60
+    - ingredientName: lemon
+      quantity: 15
+    - ingredientName: triple_sec
+      quantity: 15
+  - id: 10
+    mixName: Rum Cooler
+    ingredients:
+    - ingredientName: rum
+      quantity: 60
+    - ingredientName: lemon
+      quantity: 1
+    - ingredientName: lime
+      quantity: 120
+  - id: 11
+    mixName: 155 Belmont
+    ingredients:
+    - ingredientName: orange
+      quantity: 44
+    - ingredientName: vodka
+      quantity: 44
+    - ingredientName: rum
+      quantity: 88
+  - id: 12
+    mixName: Angel Face
+    ingredients:
+    - ingredientName: gin
+      quantity: 30
+    - ingredientName: brandy
+      quantity: 15
+  - id: 13
+    mixName: Kamikaze
+    ingredients:
+    - ingredientName: vodka
+      quantity: 30
+    - ingredientName: triple_sec
+      quantity: 30
+    - ingredientName: lime
+      quantity: 30
+  - id: 14
+    mixName: Orange Crush
+    ingredients:
+    - ingredientName: orange
+      quantity: 30
+    - ingredientName: vodka
+      quantity: 30
+    - ingredientName: triple_sec
+      quantity: 30
+  - id: 15
+    mixName: Coke and Drops
+    ingredients:
+    - ingredientName: lemon
+      quantity: 0.35
+    - ingredientName: cola
+      quantity: 100
 --- !u!4 &1216697246
 Transform:
   m_ObjectHideFlags: 0
@@ -463,83 +520,94 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1842736006}
-  - {fileID: 1510092766}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1510092765
+--- !u!1 &1410475701
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 1510092766}
+  - component: {fileID: 1410475702}
+  - component: {fileID: 1410475705}
+  - component: {fileID: 1410475704}
+  - component: {fileID: 1410475703}
   m_Layer: 0
-  m_Name: Mixes
+  m_Name: Glass(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1510092766
+--- !u!4 &1410475702
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1510092765}
+  m_GameObject: {fileID: 1410475701}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 117541485}
-  - {fileID: 1583797148}
-  m_Father: {fileID: 1216697246}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1583797147
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1583797148}
-  - component: {fileID: 1583797149}
-  m_Layer: 0
-  m_Name: Mix 2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1583797148
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1583797147}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.000000058431915, y: 0, z: 4.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1510092766}
-  m_RootOrder: 1
+  m_Father: {fileID: 1842736006}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1583797149
+--- !u!114 &1410475703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1583797147}
+  m_GameObject: {fileID: 1410475701}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 782bdcb74d4da1947b825b59ce9bff30, type: 3}
+  m_Script: {fileID: 11500000, guid: fcd007511f18d5444b58cd1589388403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mixName: Mix1
-  plugPosition: 1
-  ingredients: []
+  pos: 6
+  plug: 11
+--- !u!23 &1410475704
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1410475701}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: dde986121e2b50f4991f17bb9d515c91, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1410475705
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1410475701}
+  m_Mesh: {fileID: 4300002, guid: 3d684fb4558da2a4c938871c04b6eecc, type: 3}
 --- !u!1001 &1842736005
 Prefab:
   m_ObjectHideFlags: 0
@@ -547,6 +615,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1216697246}
     m_Modifications:
+    - target: {fileID: 114584452757270018, guid: 0accc85641f380441b70c334cc9f667a,
+        type: 2}
+      propertyPath: glasses.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4099034545133470, guid: 0accc85641f380441b70c334cc9f667a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -584,6 +657,16 @@ Prefab:
       propertyPath: radius
       value: 4.9
       objectReference: {fileID: 0}
+    - target: {fileID: 114584452757270018, guid: 0accc85641f380441b70c334cc9f667a,
+        type: 2}
+      propertyPath: glasses.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114584452757270018, guid: 0accc85641f380441b70c334cc9f667a,
+        type: 2}
+      propertyPath: glasses.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0accc85641f380441b70c334cc9f667a, type: 2}
   m_IsPrefabParent: 0
@@ -592,3 +675,88 @@ Transform:
   m_PrefabParentObject: {fileID: 4099034545133470, guid: 0accc85641f380441b70c334cc9f667a,
     type: 2}
   m_PrefabInternal: {fileID: 1842736005}
+--- !u!1 &2051211472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2051211473}
+  - component: {fileID: 2051211476}
+  - component: {fileID: 2051211475}
+  - component: {fileID: 2051211474}
+  m_Layer: 0
+  m_Name: Glass(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2051211473
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2051211472}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.9, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1842736006}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2051211474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2051211472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd007511f18d5444b58cd1589388403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: 0
+  plug: 8
+--- !u!23 &2051211475
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2051211472}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: dde986121e2b50f4991f17bb9d515c91, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &2051211476
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2051211472}
+  m_Mesh: {fileID: 4300002, guid: 3d684fb4558da2a4c938871c04b6eecc, type: 3}
