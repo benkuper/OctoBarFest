@@ -94,10 +94,10 @@ public class PouringPath
 
     public void Shuffle()
     {
-        Debug.Log("Shuffle !");
+       // Debug.Log("Shuffle !");
         System.Random rnd = new System.Random((int)Time.time);
         steps = steps.OrderBy(item => rnd.Next()).ToList();
-        foreach (PouringStep s in steps) Debug.Log("Target position : "+s.targetPosition);
+        //foreach (PouringStep s in steps) Debug.Log("Target position : "+s.targetPosition);
     }
 
 

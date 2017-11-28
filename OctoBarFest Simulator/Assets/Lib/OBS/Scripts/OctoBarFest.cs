@@ -15,12 +15,14 @@ public class OctoBarFest : MonoBehaviour
     [Header("Pouring")]
     [Tooltip("Time to got from one place to another")]
     public float stepTransitionTime;
-    public float pouringTimeFactor;
+    public float additionalStepTransitionTime;
+    public float pouringQuantityFactor;
     public float minServingTime;
 
     [Range(0, 1)]
     [Tooltip("Anticipation of the jet before the glass is in position. 1 = first drop will arrive as the same time as the glass, 0 = first drop will launch when the glass is in position")]
     public float jetAnticipation;
+    Dictionary<string,LiquidJet> jets;
 
     [Header("Session")]
     public string currentSession;
@@ -33,11 +35,16 @@ public class OctoBarFest : MonoBehaviour
     OBSPlate plate;
     Coroutine pourCoroutine;
 
+    
 
     // Use this for initialization
     void Start()
     {
         plate = GetComponentInChildren<OBSPlate>();
+
+        jets = new Dictionary<string, LiquidJet>();
+        LiquidJet[] jetList = GetComponentsInChildren<LiquidJet>();
+        foreach (LiquidJet j in jetList) jets.Add(j.ingredientName, j);
     }
 
 
@@ -168,25 +175,50 @@ public class OctoBarFest : MonoBehaviour
     {
         Debug.Log("Pour sequence "+path);
 
+        float totalTime = 0;
         //plate.goHome();
         //yield return new WaitForSeconds(stepTransitionTime + .5f);
 
+        int currentPosition = 0;
         foreach (PouringStep s in path.steps)
         {
-            plate.goToPosition(s.targetPosition, stepTransitionTime);
-            yield return new WaitForSeconds(stepTransitionTime);
+
+
+            float posDist = path.getMinDistanceBetween(s.targetPosition, currentPosition, path.numPositions);
+            float targetTransitionTime = stepTransitionTime + (posDist - 1) * additionalStepTransitionTime;
+
+            float maxTime = 0;
 
             foreach (QuantifiedIngredient qi in s.ingredients)
             {
                 int targetGlass = (getMixIngredientWithName(qi.ingredientName).platePosition + s.targetPosition) % numPositions;
-                Debug.Log("Serving " + qi.quantity + " ml of " + qi.ingredientName + " to position " + targetGlass);
+                
+                float t = qi.quantity * pouringQuantityFactor / 100.0f;
+
+                LiquidJet j = jets[qi.ingredientName];
+
+                float anticipation = Mathf.Min(jetAnticipation * j.jetTimeToGlass, targetTransitionTime);
+                float inverseAnticipation = targetTransitionTime - anticipation;
+
+                float targetPourTime = t +j .jetTimeToGlass - anticipation;
+
+                //Debug.Log("Serving " + qi.ingredientName + " for " + t + ", targetPourTime =" + targetPourTime);
+
+                if (targetPourTime > maxTime) maxTime = targetPourTime;
+
+                j.launch(inverseAnticipation,t); //launch with anticipation delay
             }
 
-            float servingTime = s.getMaxQuantityPoured() * pouringTimeFactor / 100.0f;
-            yield return new WaitForSeconds(Mathf.Max(servingTime,minServingTime));
+            plate.goToPosition(s.targetPosition, targetTransitionTime);
+            currentPosition = s.targetPosition;
+
+            float waitTime = targetTransitionTime + maxTime;
+            totalTime += waitTime;
+            yield return new WaitForSeconds(waitTime); //do nothing while moving then do nothing while serving
+
         }
 
-        Debug.Log("Sequence finished !");
+        Debug.Log("Sequence finished in "+totalTime+" seconds !");
         plate.goHome();
 
     }

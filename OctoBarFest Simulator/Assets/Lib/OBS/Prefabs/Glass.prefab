@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33295316852763834}
   - component: {fileID: 23690974565561146}
   - component: {fileID: 114196691074425966}
+  - component: {fileID: 64108401129674644}
   m_Layer: 0
   m_Name: Glass
   m_TagString: Untagged
@@ -56,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: dde986121e2b50f4991f17bb9d515c91, type: 2}
+  - {fileID: 2100000, guid: 4f1dc5b61b0d65843854ebe832618854, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,6 +84,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1673908622850134}
   m_Mesh: {fileID: 4300002, guid: 3d684fb4558da2a4c938871c04b6eecc, type: 3}
+--- !u!64 &64108401129674644
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1673908622850134}
+  m_Material: {fileID: 13400000, guid: 27642fdc757e9d841a4c666d0ada420e, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: 3d684fb4558da2a4c938871c04b6eecc, type: 3}
 --- !u!114 &114196691074425966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -94,4 +109,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd007511f18d5444b58cd1589388403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
+  pos: 0
+  plug: 0
