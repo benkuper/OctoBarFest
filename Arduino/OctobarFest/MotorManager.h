@@ -6,13 +6,13 @@ class MotorManager
 {
   public:
     AccelStepper * stepper;
-    int positions[NUM_POSITIONS] { 0, 1000, 2000, 3000, 4000, 5000, 6000, 7000 };
-
+    int completeTurn = 21600;
+    
     bool calibMode = false;
     int calibSpeed = 0;
 
-    int maxAcceleration = 5000;
-    int maxSpeed = 8000;
+    int maxAcceleration = 2000;
+    int maxSpeed = 2000;
 
     void init()
     {
@@ -30,46 +30,75 @@ class MotorManager
     {
       if (calibMode)
       {
-        //stepper->runSpeed();
+        stepper->runSpeed();
         return;
       }
 
-      //stepper->run();
-    }
-
-    void saveCurrentPosition(int pos)
-    {
-#if DEBUG_MOTOR
-      Serial.println("Position " + String(pos) + " saved to " + String(stepper->currentPosition()));
-#endif
-      positions[pos] = stepper->currentPosition();
+      stepper->run();
     }
 
     void moveToPosition(int posIndex)
     {
+      int targetPos = map(posIndex,1,9,0,completeTurn);
+      #if DEBUG_MOTOR
+      Serial.println("Move to Bar Position : "+String(posIndex)+", target position :"+String(targetPos));
+      #endif
       if (posIndex < 1 || posIndex > 8) return;
-      //stepper->moveToPosition(positions[posIndex - 1]);
+      stepper->moveTo(targetPos);// positions[posIndex - 1]);
     }
 
-    void setMaxAcceleration(int maxAccel, int maxS)
+    void moveToStepPosition(int stepPos)
+    {
+      #if DEBUG_MOTOR
+      Serial.println("Move to STEP Position : "+String(stepPos));
+      #endif
+      
+      stepper->moveTo(stepPos);
+    }
+
+    void setMaxValues(int maxAccel, int maxS)
     {
       maxAcceleration = maxAccel;
       maxSpeed = maxS;
-      //stepper->setAcceleration(maxAcceleration);
-      //stepper->setMaxSpeed(maxSpeed);
+      stepper->setAcceleration(maxAcceleration);
+      stepper->setMaxSpeed(maxSpeed);
 
       //Save preferences
     }
 
+    void setCalibSpeed(int speed)
+    {
+      #if DEBUG_MOTOR
+      Serial.println("Set Speed : "+String(speed));
+      #endif
+      
+      setCalibMode(true);
+      calibSpeed = speed;
+      stepper->setSpeed(calibSpeed);
+    }
+
     void setCalibMode(bool val)
     {
+
+      if(calibMode == val) return;
+
+      #if DEBUG_MOTOR
+      Serial.println("Set Calib : "+String(val));
+      #endif
+
+
       calibMode = val;
       calibSpeed = 0;
     }
 
     void calibrateZero()
     {
-      //stepper->setCurrentPosition(0);
+      #if DEBUG_MOTOR
+      Serial.println("Calibrate zero");
+      #endif
+
+      setCalibMode(false);
+      stepper->setCurrentPosition(0);
     }
 
 };

@@ -1,7 +1,8 @@
 #include "FastLED.h"
 
-#define DEBUG 1
+#define NUM_POSITIONS 8
 
+#define DEBUG 1
 #if DEBUG
 #define DEBUG_PUMP 1
 #define DEBUG_MOTOR 1
@@ -41,8 +42,6 @@ PouringManager pouringManager;
 long lastLedUpdate = 0;
 
 
-
-
 /////////////   SETUP
 
 void setup() {
@@ -64,6 +63,9 @@ void setup() {
   oscManager.init();
   oscManager.addCallbackMessageReceived(&oscEvent);
 
+  pumpManager.init();
+  motorManager.init();
+
   pouringManager.init();
   pouringManager.addCallbackAskPositionEvent(&pouringAskPositionEvent);
   pouringManager.addCallbackAskPumpEvent(&pouringAskPumpEvent);
@@ -81,12 +83,13 @@ void loop()
 
   inputManager.update();
   laserManager.update();
+
   motorManager.update();
 
   pouringManager.update();
 
   updateLeds();
- 
+
 }
 
 /////// EVENTS
@@ -103,7 +106,6 @@ void serialEvent(const char * buffer, int length)
 
   switch (cmd)
   {
-
   }
 }
 
@@ -125,6 +127,25 @@ void oscEvent(OSCMessage &msg)
 
     inputManager.setButtonColor(CRGB(val ? 1 : 0, 1, 0));
   }
+  else if(msg.match("/phone/pump/1")) pumpManager.setPump(1,msg.getFloat(0) > 0);
+  else if(msg.match("/phone/pump/2")) pumpManager.setPump(2,msg.getFloat(0) > 0);
+  else if(msg.match("/phone/pump/3")) pumpManager.setPump(3,msg.getFloat(0) > 0);
+  else if(msg.match("/phone/pump/4")) pumpManager.setPump(4,msg.getFloat(0) > 0);
+  else if(msg.match("/phone/pump/5")) pumpManager.setPump(5,msg.getFloat(0) > 0);
+  else if(msg.match("/phone/pump/6")) pumpManager.setPump(6,msg.getFloat(0) > 0);
+  else if(msg.match("/phone/pump/7")) pumpManager.setPump(7,msg.getFloat(0) > 0);
+  else if(msg.match("/phone/pump/8")) pumpManager.setPump(8,msg.getFloat(0) > 0);
+  else if(msg.match("/phone/start")) pouringManager.start();
+  else if(msg.match("/phone/calibrateMotor")) motorManager.calibrateZero();
+  else if(msg.match("/phone/calib")) motorManager.setCalibMode(msg.getInt(0) > 0);
+  else if(msg.match("/phone/speed"))
+  {
+    motorManager.setCalibSpeed(msg.getFloat(0) * 1000);
+  }
+  else if(msg.match("/motor/position")) motorManager.moveToPosition(msg.getInt(0));
+  else if(msg.match("/phone/position")) motorManager.moveToPosition((int)msg.getFloat(0));
+  else if(msg.match("/motor/stepPos")) motorManager.moveToStepPosition(msg.getInt(0));
+  else if(msg.match("/phone/zero") || msg.match("/motor/zero")) motorManager.calibrateZero();
 }
 
 void buttonEvent(bool pressed)
@@ -132,6 +153,27 @@ void buttonEvent(bool pressed)
 #if DEBUG_INPUT
   Serial.println("Button change : " + String(pressed));
 #endif
+
+  //temp
+  if (pressed)
+  {
+    if (!inputManager.lockState)
+    {
+      for (int i = 0; i < NUM_POSITIONS; i++)
+      {
+        pouringManager.glasses[i].isPresent = true;
+      }
+
+      
+      pouringManager.assignRandomMixesToGlasses();
+      pouringManager.start();
+    } else
+    {
+#if DEBUG_INPUT
+      Serial.println("Must unlock before starting !");
+#endif
+    }
+  }
 }
 
 void lockEvent(bool locked)
@@ -139,6 +181,8 @@ void lockEvent(bool locked)
 #if DEBUG_INPUT
   Serial.println("Lock change : " + String(locked));
 #endif
+
+  if (locked) pouringManager.finish();
 }
 
 void laserEvent(int id, bool value)
@@ -153,6 +197,7 @@ void pouringAskPositionEvent(int pos)
 #if DEBUG_POURING
   Serial.println("Pouring ask positition  " + String(pos));
 #endif
+  motorManager.moveToPosition(pos);
 }
 
 void pouringAskPumpEvent(int pumpID, bool value)
@@ -160,9 +205,8 @@ void pouringAskPumpEvent(int pumpID, bool value)
 #if DEBUG_POURING
   Serial.println("Pouring ask pump " + String(pumpID) + " : " + String(value));
 #endif
+  pumpManager.setPump(pumpID, value);
 }
-
-
 
 //FastLED unified
 void updateLeds()

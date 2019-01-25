@@ -11,10 +11,11 @@ class PumpManager
 #if DEBUG
       Serial.println("PumpManager init.");
 #endif
-    }
-
-    void update()
-    {
+      for(int i=0;i<NUM_PUMPS;i++)
+      {
+        pinMode(pumpPins[i], OUTPUT);
+        setPump(i+1, false);
+      }
     }
 
     void setPump(int id, bool value)
