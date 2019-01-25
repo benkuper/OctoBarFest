@@ -1,7 +1,6 @@
 class Plate
 {
 public:
-
   const long timePerStep = 1000;//in ms
   float speedFactor = 1;
   
