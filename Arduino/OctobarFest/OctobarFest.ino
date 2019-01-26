@@ -1,6 +1,7 @@
 #include "FastLED.h"
 
 #define NUM_POSITIONS 8
+#define POURING_NEEDS_LOCK 0
 
 #define DEBUG 1
 #if DEBUG
@@ -136,6 +137,7 @@ void oscEvent(OSCMessage &msg)
   else if(msg.match("/phone/pump/7")) pumpManager.setPump(7,msg.getFloat(0) > 0);
   else if(msg.match("/phone/pump/8")) pumpManager.setPump(8,msg.getFloat(0) > 0);
   else if(msg.match("/phone/start")) pouringManager.start();
+  else if(msg.match("/phone/finish")) pouringManager.finish();
   else if(msg.match("/phone/calibrateMotor")) motorManager.calibrateZero();
   else if(msg.match("/phone/calib")) motorManager.setCalibMode(msg.getInt(0) > 0);
   else if(msg.match("/phone/speed"))
@@ -157,7 +159,14 @@ void buttonEvent(bool pressed)
   //temp
   if (pressed)
   {
-    if (!inputManager.lockState)
+
+#if POURING_NEEDS_LOCK
+  bool lockOk = !inputManager.lockState;
+#else
+  bool lockOk = true;
+#endif
+
+    if (lockOk)
     {
       for (int i = 0; i < NUM_POSITIONS; i++)
       {
@@ -182,7 +191,9 @@ void lockEvent(bool locked)
   Serial.println("Lock change : " + String(locked));
 #endif
 
+#if POURING_NEEDS_LOCK
   if (locked) pouringManager.finish();
+#endif
 }
 
 void laserEvent(int id, bool value)
